@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventario Escolar ML</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎒</span>
+        <div>
+          <h1>UtilES<span class="accent">ML</span></h1>
+          <p class="subtitle">Inventario Inteligente con Machine Learning</p>
+        </div>
+      </div>
+      <div class="header-badge">TensorFlow.js</div>
+    </div>
+  </header>
+
+  <main>
+    <!-- COLUMNA IZQUIERDA: Cámara -->
+    <section class="card camera-card">
+      <div class="card-label">01 — CÁMARA</div>
+      <div class="video-wrapper">
+        <video id="webcam" autoplay playsinline></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <div class="video-overlay" id="videoOverlay">
+          <span>📷</span>
+          <p>Cámara inactiva</p>
+        </div>
+        <div class="scan-line" id="scanLine"></div>
+      </div>
+
+      <div class="btn-group">
+        <button id="btnCamara" class="btn btn-primary">
+          <span>▶</span> Iniciar Cámara
+        </button>
+        <button id="btnRegistrar" class="btn btn-success" disabled>
+          <span>＋</span> Registrar
+        </button>
+      </div>
+    </section>
+
+    <!-- COLUMNA DERECHA: Predicción + Tabla -->
+    <div class="right-col">
+
+      <!-- Predicción -->
+      <section class="card prediction-card">
+        <div class="card-label">02 — PREDICCIÓN</div>
+
+        <div class="prediction-display">
+          <div class="pred-objeto" id="predObjeto">—</div>
+          <div class="pred-confianza" id="predConfianza">0%</div>
+        </div>
+
+        <div class="confidence-bar-wrap">
+          <div class="confidence-bar" id="confidenceBar"></div>
+        </div>
+
+        <div class="estado-badge" id="estadoBadge">
+          <span id="estadoTexto">Esperando predicción...</span>
+        </div>
+
+        <!-- Barras por clase -->
+        <div class="clases-grid" id="clasesGrid"></div>
+      </section>
+
+      <!-- Inventario -->
+      <section class="card inventario-card">
+        <div class="card-label">03 — INVENTARIO</div>
+        <div class="table-header">
+          <span>Objetos registrados: <strong id="totalRegistros">0</strong></span>
+          <button class="btn btn-danger-sm" id="btnLimpiarTodo">🗑 Limpiar todo</button>
+        </div>
+        <div class="table-wrap">
+          <table id="tablaInventario">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Objeto</th>
+                <th>Confianza</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbodyInventario">
+              <tr class="empty-row">
+                <td colspan="6">Sin registros aún</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- TensorFlow.js y Teachable Machine -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
